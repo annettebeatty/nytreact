@@ -1,0 +1,25 @@
+
+* {
+    font-family: 'News Cycle', sans-serif;
+}
+
+.card-title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    margin: auto;
+    width: 920px;
+    background-color: #20315A;
+    color: white;
+
+}
+
+.card-header {
+    margin: 10px auto;
+    width: 960px;
+}
+
+.card-body {
+    width: 960px;
+    padding: 10px;
+}

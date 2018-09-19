@@ -1,0 +1,15 @@
+.jumbotron {
+    background-color: #20315A;
+    color: white;
+    margin: 0 auto;
+    width: 960px;
+    
+}
+
+.title {
+    font-size: 60px;
+}
+
+* {
+    font-family: 'News Cycle', sans-serif;
+}
