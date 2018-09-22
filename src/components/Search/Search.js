@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./styles/Search.css";
+import "./Search.css";
 
 class Search extends Component {
   // Setting initial state
@@ -22,9 +22,12 @@ handleInputChange = event => {
 handleFormSubmit = event => {
   event.preventDefault();
 
+  // const { firstName, lastName} = this.state.
   // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
   alert(`Data ${this.state.searchTerm} ${this.state.startYear} ${this.state.endYear}`);
 
+  // Put my ajax in here
+  
   this.setState({
     searchTerm: "",
     startYear: "",
@@ -40,7 +43,7 @@ render() {
         <form className="form">
         <div className="form-group">
           <label htmlFor="userSearch">Search Term:</label>
-          <input type="text" className="form-control" name="searchTerm" value={this.state.searchTerm} onChange={this.handleInputChange} aria-describedby="emailHelp" placeholder="Enter Your Search Query"></input>
+          <input type="text" className="form-control" name="searchTerm" value={this.state.searchTerm} onChange={this.handleInputChange} placeholder="Enter Your Search Query"></input>
         </div>
         <div className="form-group">
           <label htmlFor="userStart">Start Year (Optional):</label>

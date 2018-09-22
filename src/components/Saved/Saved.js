@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles/Saved.css";
+import "./Saved.css";
 
 const Saved = () => (
     <div className="card card-header">
