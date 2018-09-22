@@ -1,28 +1,61 @@
-import React from "react";
+import React, { Component } from "react";
 import "./styles/Search.css";
 
-const Search = () => (
+class Search extends Component {
+  // Setting initial state
+  state = {
+    searchTerm: "",
+    startYear: "",
+    endYear: ""
+  };
+
+handleInputChange = event => {
+  // Getting the value and name of the input which triggered the change
+  const { name, value } = event.target;
+
+  // Updating the input's state
+  this.setState({
+    [name]: value
+  });
+};
+
+handleFormSubmit = event => {
+  event.preventDefault();
+
+  // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
+  alert(`Data ${this.state.searchTerm} ${this.state.startYear} ${this.state.endYear}`);
+
+  this.setState({
+    searchTerm: "",
+    startYear: "",
+    endYear: ""
+  });
+};
+
+render() {
+  return (
     <div className="card card-header">
       <h3 className="card-title rounded-top"><strong><i className="fa fa-newspaper"></i> Search Parameters</strong></h3>
         <div className="card-block">
-        <form>
+        <form className="form">
         <div className="form-group">
-          <label for="userSearch">Search Term:</label>
-          <input type="text" className="form-control" id="search-term" aria-describedby="emailHelp" placeholder="Enter Your Search Query"></input>
+          <label htmlFor="userSearch">Search Term:</label>
+          <input type="text" className="form-control" name="searchTerm" value={this.state.searchTerm} onChange={this.handleInputChange} aria-describedby="emailHelp" placeholder="Enter Your Search Query"></input>
         </div>
         <div className="form-group">
-          <label for="userStart">Start Year (Optional):</label>
-          <input type="text" className="form-control" id="start-year" placeholder="Choose a Starting Year"></input>
+          <label htmlFor="userStart">Start Year (Optional):</label>
+          <input type="text" className="form-control" name="startYear" value={this.state.startYear} onChange={this.handleInputChange} placeholder="Choose a Starting Year"></input>
         </div>
         <div className="form-group">
-          <label for="userEnd">End Year (Optional):</label>
-          <input type="text" className="form-control" id="end-year" placeholder="Choose an Ending Year"></input>
+          <label htmlFor="userEnd">End Year (Optional):</label>
+          <input type="text" className="form-control" name="endYear" value={this.state.endYear} onChange={this.handleInputChange} placeholder="Choose an Ending Year"></input>
         </div>
-        <button id="searchit" type="submit" className="btn btn-primary"><i class="fa fa-search"></i> Search</button>
-        <button type="submit" className="btn btn-primary"><i class="fa fa-trash"></i> Clear Results</button>
+        <button id="searchit" type="submit" className="btn btn-primary" onClick={this.handleFormSubmit}><i className="fa fa-search"></i> Search</button>
         </form>
       </div>
       </div>
 );
+}
+}
   
 export default Search;
