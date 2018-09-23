@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import "./Search.css";
+import axios from "axios";
+
+const BASEURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 
 class Search extends Component {
   // Setting initial state
@@ -8,6 +11,32 @@ class Search extends Component {
     startYear: "",
     endYear: ""
   };
+
+searchArticles = (query, startYear, endYear) => {
+  // we need to make build start/end dates as optional
+  if (startYear)
+  {
+      startYear =  "&begin_date=" + startYear + "0101";
+  }
+
+  if (endYear)
+  {
+      endYear = "&end_date=" + endYear + "1231";
+  }
+
+  let queryURL =  '?&api-key=d0d8316ccccd4426b403229ab6762b11&q=' + query + "&page=0";
+  queryURL += startYear + endYear;
+
+  console.log("queryURL - ", queryURL);
+
+  axios.get(BASEURL + queryURL)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
 
 handleInputChange = event => {
   // Getting the value and name of the input which triggered the change
@@ -27,6 +56,7 @@ handleFormSubmit = event => {
   alert(`Data ${this.state.searchTerm} ${this.state.startYear} ${this.state.endYear}`);
 
   // Put my ajax in here
+  this.searchArticles(this.state.searchTerm, this.state.startYear, this.state.endYear);
   
   this.setState({
     searchTerm: "",
