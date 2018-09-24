@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./Search.css";
+import ResultsList from "../Results/Results";
+import SearchForm from "./SearchForm"
 import axios from "axios";
 
 const BASEURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
@@ -9,7 +11,8 @@ class Search extends Component {
   state = {
     searchTerm: "",
     startYear: "",
-    endYear: ""
+    endYear: "",
+    results: []
   };
 
 searchArticles = (query, startYear, endYear) => {
@@ -30,9 +33,8 @@ searchArticles = (query, startYear, endYear) => {
   console.log("queryURL - ", queryURL);
 
   axios.get(BASEURL + queryURL)
-    .then(function (response) {
-      console.log(response);
-    })
+
+  .then(res => this.setState({ results: res.data.response.docs }))
     .catch(function (error) {
       console.log(error);
     });
@@ -51,9 +53,8 @@ handleInputChange = event => {
 handleFormSubmit = event => {
   event.preventDefault();
 
-  // const { firstName, lastName} = this.state.
   // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
-  alert(`Data ${this.state.searchTerm} ${this.state.startYear} ${this.state.endYear}`);
+  //alert(`Data ${this.state.searchTerm} ${this.state.startYear} ${this.state.endYear}`);
 
   // Put my ajax in here
   this.searchArticles(this.state.searchTerm, this.state.startYear, this.state.endYear);
@@ -61,33 +62,28 @@ handleFormSubmit = event => {
   this.setState({
     searchTerm: "",
     startYear: "",
-    endYear: ""
+    endYear: "",
+    results: []
   });
+};
+
+renderPage = () => {
+  if (this.state.results) {
+    return <ResultsList results={this.state.results}/>;
+  }
 };
 
 render() {
   return (
-    <div className="card card-header">
-      <h3 className="card-title rounded-top"><strong><i className="fa fa-newspaper"></i> Search Parameters</strong></h3>
-        <div className="card-block">
-        <form className="form">
-        <div className="form-group">
-          <label htmlFor="userSearch">Search Term:</label>
-          <input type="text" className="form-control" name="searchTerm" value={this.state.searchTerm} onChange={this.handleInputChange} placeholder="Enter Your Search Query"></input>
-        </div>
-        <div className="form-group">
-          <label htmlFor="userStart">Start Year (Optional):</label>
-          <input type="text" className="form-control" name="startYear" value={this.state.startYear} onChange={this.handleInputChange} placeholder="Choose a Starting Year"></input>
-        </div>
-        <div className="form-group">
-          <label htmlFor="userEnd">End Year (Optional):</label>
-          <input type="text" className="form-control" name="endYear" value={this.state.endYear} onChange={this.handleInputChange} placeholder="Choose an Ending Year"></input>
-        </div>
-        <button id="searchit" type="submit" className="btn btn-primary" onClick={this.handleFormSubmit}><i className="fa fa-search"></i> Search</button>
-        </form>
-      </div>
-      </div>
-);
+    <div>
+      <SearchForm
+        search={this.state.search}
+        handleFormSubmit={this.handleFormSubmit}
+        handleInputChange={this.handleInputChange}
+      />
+      {this.renderPage()}
+    </div>
+  );
 }
 }
   
