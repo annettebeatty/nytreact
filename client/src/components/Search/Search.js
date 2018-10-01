@@ -87,18 +87,9 @@ handleSaveClick = object => {
 
   // Remove the saved element from the results array
   let hold = this.state.results;
-  
+
   let found = hold.map(function(e) { return e._id; }).indexOf(object._id);
   hold.splice(found, 1);
-  
-  /*
-  let found = this.state.results.find((element, i) => {
-    if (element._id === object._id) {
-      this.setState({ results: this.state.results.splice(i, 1)});
-    }
-  });
-  */
-
 }
 
 handleDeleteClick = id => {
