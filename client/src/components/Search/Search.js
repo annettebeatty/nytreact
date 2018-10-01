@@ -90,6 +90,8 @@ handleSaveClick = object => {
 
   let found = hold.map(function(e) { return e._id; }).indexOf(object._id);
   hold.splice(found, 1);
+
+  this.setState({ results: hold });
 }
 
 handleDeleteClick = id => {
