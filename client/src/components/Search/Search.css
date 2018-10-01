@@ -1,0 +1,48 @@
+
+* {
+    font-family: 'News Cycle', sans-serif;
+}
+
+form {
+    margin: 0 auto;
+    width: 960px;
+}
+
+.card-title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    margin: auto;
+    width: 920px;
+    background-color: #20315A;
+    color: white;
+
+}
+
+.card-header {
+    margin: 10px auto;
+    width: 960px;
+}
+
+.form-group {
+    width: 900px;
+    margin: auto;
+    padding-top: 5px;
+    
+}
+
+.card-body {
+    width: 960px;
+    padding: 10px;
+}
+
+.btn {
+    margin: 10px;
+    margin-left: 0px;
+    background-color: grey;
+    border: white;
+}
+
+.btn:hover { 
+    background-color: #20315A;
+}
