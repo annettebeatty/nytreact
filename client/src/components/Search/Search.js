@@ -25,12 +25,12 @@ searchArticles = (query, startYear, endYear) => {
   else        
       startYear =  "&begin_date=20180101";
 
-
   if (endYear)
       endYear = "&end_date=" + endYear + "1231";
   else
       endYear =  "&end_date=20181231";
 
+  // Code for spaces in URL and build the query for the NYT API including years
   query = encodeURI(query);
   query += startYear + endYear;
 
@@ -42,6 +42,7 @@ searchArticles = (query, startYear, endYear) => {
     });
 };
 
+// This assigns the user inputs to the variables
 handleInputChange = event => {
   // Getting the value and name of the input which triggered the change
   const { name, value } = event.target;
@@ -52,12 +53,14 @@ handleInputChange = event => {
   });
 };
 
+// Process the completed form
 handleFormSubmit = event => {
   event.preventDefault();
 
-  // Put my ajax in here
+  // Call the function which calls the NYT API
   this.searchArticles(this.state.searchTerm, this.state.startYear, this.state.endYear);
 
+  // Clear out the search parameters
   this.setState({
     searchTerm: "",
     startYear: "",
@@ -77,10 +80,12 @@ loadArray = () => {
   .catch(err => console.log(err));
 }
 
+// This processes when the user clicks an article to save
 handleSaveClick = object => {
-  // Save the data into Mongo
+
   console.log("Clicked to save ", object);
 
+  // Save the data into Mongo
   API.saveNote(object)
   .then(res => this.loadArray())
   .catch(err => console.log(err));
@@ -91,11 +96,15 @@ handleSaveClick = object => {
   let found = hold.map(function(e) { return e._id; }).indexOf(object._id);
   hold.splice(found, 1);
 
+  // Reset state of results array.  This will re-render results
+  // section of the page without the saved article since it's
+  // been "moved" to the saved section
   this.setState({ results: hold });
 }
 
+// Process a click for delete
 handleDeleteClick = id => {
-  // Save the data into Mongo
+  // Remove the data from the Mongo database
   console.log("Clicked to delete ", id);
 
   API.deleteNote(id)
@@ -103,6 +112,7 @@ handleDeleteClick = id => {
   .catch(err => console.log(err));
 }
 
+// This renders the Results section if they exist
 renderPage1 = () => {
   if (this.state.results) {
     return <ResultsList 
@@ -110,9 +120,9 @@ renderPage1 = () => {
       handleSaveClick={this.handleSaveClick}
     />;
   }
-
 };
 
+// This renders the Saved section if they exist
 renderPage2 = () => {
   if (this.state.saved) {
     return <Saved 
